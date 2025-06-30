@@ -2,18 +2,17 @@
 [![paper]()](https://openreview.net/forum?id=eFUSbP7YQa)
 
 
-> [Yi Zhang](https://scholar.google.com/citations?user=9E8XJ54AAAAJ&hl=en), [Xingyu Zhao*](https://scholar.google.com/citations?user=SzEBdA8AAAAJ&hl=en), [Yun Tang](https://scholar.google.com/citations?hl=en&user=idlExzkAAAAJ), [Wenjie Ruan](https://scholar.google.com/citations?user=VTASFGEAAAAJ&hl=en),
+> [Yi Zhang](https://scholar.google.com/citations?user=9E8XJ54AAAAJ&hl=en), [Xingyu Zhao*](https://scholar.google.com/citations?user=SzEBdA8AAAAJ&hl=en), [Yuhang Chen](https://scholar.google.co.uk/citations?hl=en&user=gDYhywIAAAAJ), [Zhen Chen](https://scholar.google.com/citations?user=Ezm8UAQAAAAJ&hl=en), [Wenjie Ruan](https://scholar.google.com/citations?hl=en&user=VTASFGEAAAAJ),
 [Xiaowei Huang](https://scholar.google.com/citations?user=X4fLCCIAAAAJ&hl=en),
-[Siddartha Khastgir](https://scholar.google.com/citations?hl=en&user=r3ldU6sAAAAJ),
-[Paul Jennings](https://scholar.google.com/citations?hl=en&user=HOVIdYwAAAAJ)
+[Siddartha Khastgir](https://scholar.google.com/citations?hl=en&user=r3ldU6sAAAAJ)
 >
 > *Corresponding Author
 
-We propose an efficient framework, ProTIP, to evaluate the probabilistic robustness of Text-to-Image Diffusion Model with statistical guarantees.
+We introduced a novel adversarial training (AT) method targeting probabilistic robustness (AT-PR). By reformulating a new min-max optimization, we laid the theoretical foundation for AT-PR and developed specialized numerical algorithms to solve this optimization. 
 
 ## 🔥 News
 
-- [2024/7/1] Our work has been accepted by The 18th European Conference on Computer Vision ECCV 2024 !
+- [2025/25/06] Our work has been accepted by International Conference on Computer Vision, ICCV 2025 !
 
 
 ## Overview
