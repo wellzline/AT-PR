@@ -32,13 +32,10 @@ We introduced a novel adversarial training (AT) method targeting probabilistic r
 
 
 
-
 ## New inner-max optimization 
 <p align="center">
     <img src="docs/fig_new_inner_max.jpg" width="600px"/>
 </p>
-
-
 
 
 
