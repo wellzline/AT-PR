@@ -92,7 +92,13 @@ dataset
 ## Citation
 If you find this repo useful, please cite:
 ```
-
+@article{zhang2024protip,
+  title={Adversarial Training for Probabilistic Robustness},
+  author={Yi Zhang, Yuhang Chen, Zhen Chen, Wenjie Ruan, Xiaowei Huang, Siddartha Khastgir, Xingyu Zhao},
+  booktitle={International Conference on Computer Vision, ICCV 2025},
+  year={2025},
+  organization={Springer}
+}
 ```
 
 ## Remark
