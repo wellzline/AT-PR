@@ -18,7 +18,7 @@ We introduced a novel adversarial training (AT) method targeting probabilistic r
 ## Overview of AT-PR
 
 <p align="center">
-    <img src="docs/fig_algo_demo.JPG" width="600px"/>
+    <img src="docs/fig_algo_demo.jpg" width="600px"/>
 </p>
 
 ## Abstract
