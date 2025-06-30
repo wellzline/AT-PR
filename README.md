@@ -15,10 +15,10 @@ We introduced a novel adversarial training (AT) method targeting probabilistic r
 - [2025/25/06] Our work has been accepted by International Conference on Computer Vision, ICCV 2025 !
 
 
-## Overview
+## Overview of AT-PR
 
 <p align="center">
-    <img src="docs/fig_wcr_pr.JPG" width="600px"/>
+    <img src="docs/fig_algo_demo.JPG" width="600px"/>
 </p>
 
 ## Abstract
@@ -27,7 +27,7 @@ We introduced a novel adversarial training (AT) method targeting probabilistic r
 
 ## PR vs. WCR
 <p align="center">
-    <img src="docs/fig_idea_demo.jpg" width="600px"/>
+    <img src="docs/fig_wcr_pr.jpg" width="600px"/>
 </p>
 
 
@@ -42,9 +42,9 @@ We introduced a novel adversarial training (AT) method targeting probabilistic r
 
 
 
-## Algorithm
+## Comparison between AT-WCR and AT-PR
 <p align="center">
-    <img src="docs/fig_algo_demo.jpg" width="600px"/>
+    <img src="docs/fig_idea_demo.jpg" width="600px"/>
 </p>
 
 
