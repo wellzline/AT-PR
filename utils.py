@@ -47,7 +47,6 @@ def data_prepare(args):
             , batch_size=args.batch_size, shuffle=True, num_workers=8
         )
 
-
         test_loader = torch.utils.data.DataLoader(
             torchvision.datasets.SVHN(root=args.data_root, split='test', download=True, transform=transform_test)
             , batch_size=args.batch_size, shuffle=False, num_workers=8
