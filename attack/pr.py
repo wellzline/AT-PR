@@ -32,7 +32,7 @@ class PR(Attacker):
         while len(x_adv_list) < ae_per_instance:
             epilon = random.uniform(self.config['eps'] - 0.02, self.config['eps'])
             alpha = random.uniform(self.config['attack_lr']  - 0.003, self.config['attack_lr'] + 0.003)
-            num_iter = random.randint(self.config['attack_steps'] -5, self.config['attack_steps'] + 7)
+            num_iter = random.randint(self.config['attack_steps'] -2, self.config['attack_steps'] + 10)
             x_adv = self.generate_pgd_example(x, y, epilon, alpha, num_iter)
             x_adv_list.append(x_adv)
 

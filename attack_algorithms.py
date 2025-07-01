@@ -45,7 +45,6 @@ def corruption_gaussian(model, x, y, epsilon=8/255, attack=False):
         return loss, logits
 
 
-
 def corruption_laplace(model, x, y, epsilon=8/255, attack=False):
     # lap = dist.Laplace(loc=torch.tensor(0.0, device=x.device), scale=torch.tensor(epsilon, device=x.device))
     lap = dist.Laplace(loc=torch.tensor(0.0, device=x.device), scale=torch.tensor(1.0, device=x.device))
@@ -71,7 +70,6 @@ def ERM_DataAug(model, x, y, epsilon=8/255, sample_num = 20):
 
     loss = loss / float(sample_num)
     return loss, logits
-
 
 
 def fgsm_loss(model, x, y, epsilon=8/255):
@@ -166,7 +164,7 @@ def mart_loss(model,x, y, optimizer, step_size=2/255, epsilon=8/255, attack_step
     logits = model(x)
     logits_adv = model(x_adv)
     adv_probs = F.softmax(logits_adv, dim=1)
-    tmp1 = torch.argsort(adv_probs, dim=1)[:, -2:]  # [batch_size, 2]
+    tmp1 = torch.argsort(adv_probs, dim=1)[:, -2:]
     new_y = torch.where(tmp1[:, -1] == y, tmp1[:, -2], tmp1[:, -1])
     loss_adv = F.cross_entropy(logits_adv, y) + F.nll_loss(torch.log(1.0001 - adv_probs + 1e-12), new_y)
     nat_probs = F.softmax(logits, dim=1)
@@ -193,7 +191,7 @@ def CVaR_loss(model, x, y, optimizer, epsilon=8/255, t_step_size=1.0, attack_ste
             logits = model(perturbed_x)
             curr_loss = F.cross_entropy(logits, y, reduction='none')  
             indicator_sum += torch.where(curr_loss > ts, torch.ones_like(ts), torch.zeros_like(ts))
-            cvar_loss += F.relu(curr_loss - ts)  # only keep when loss > ts
+            cvar_loss += F.relu(curr_loss - ts) 
 
         indicator_avg = indicator_sum / M
         cvar_loss = (ts + cvar_loss / (M * beta)).mean()
@@ -206,14 +204,14 @@ def CVaR_loss(model, x, y, optimizer, epsilon=8/255, t_step_size=1.0, attack_ste
 
 
 
-def PR(model, x, y, step_size=2/255, epsilon=8/255, attack_steps=10):
+def PR(model, x, y, step_size=2/255, epsilon=8/255, attack_steps=10, max_num = 10):
     x_adv_list = []
     pgd = pgd_loss(model, x, y, step_size=step_size, epsilon=epsilon, attack_steps=attack_steps, attack=True)
     x_adv_list.append(pgd)
-    while len(x_adv_list) < 5:
+    while len(x_adv_list) < max_num:
         epilon = random.uniform(epsilon - 0.02, epsilon)
         alpha = random.uniform(step_size  - 0.003, step_size + 0.003)
-        num_iter = random.randint(attack_steps - 2, attack_steps + 5)
+        num_iter = random.randint(attack_steps - 2, attack_steps + 10)
         x_adv = pgd_loss(model, x, y, step_size=alpha, epsilon=epilon, attack_steps=num_iter, attack=True)
         x_adv_list.append(x_adv)
 
@@ -236,11 +234,7 @@ def pick_best_ae(step_size, model, x, adv_list, y):
         logits = model(x_curr)
         pred = logits.argmax(dim=1)
         is_ae = pred != y
-        count = 0
         while is_ae.sum() > y.size(0) * 0.1:
-            if count >= 40:
-                break
-            count += 1
             loss = F.cross_entropy(logits, y, reduction="mean")
             model.zero_grad()
             loss.backward()
@@ -261,17 +255,6 @@ def pick_best_ae(step_size, model, x, adv_list, y):
 
 
 
-def TERM(model, x, y, t=2.0):
-    logits = model(x) 
-    loss = F.cross_entropy(logits, y, reduction="none")  # Get individual losses
-    term_loss = torch.log(torch.exp(t * loss).mean() + 1e-6) / t  # Mean over the batch
-    return term_loss, logits
-
-
-
-
-
-# def ALP(model, x, y, optimizer, step_size=2/255, epsilon=8/255, attack_steps=10, beta=6.0):
 def ALP(model, x, y, optimizer, step_size=2/255, epsilon=8/255, attack_steps=10):
     x_pgd = pgd_loss(model, x, y, optimizer=optimizer,
                          step_size=step_size, 
