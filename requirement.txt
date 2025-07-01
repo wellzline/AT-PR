@@ -1,0 +1,14 @@
+torch
+numpy
+tqdm
+torchvision
+pandas
+git+https://github.com/fra31/auto-attack
+torchattacks
+timm==0.5.4
+
+
+
+
+
+

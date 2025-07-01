@@ -8,7 +8,7 @@
 >
 > *Corresponding Author
 
-We introduced a novel adversarial training (AT) method targeting probabilistic robustness (AT-PR). By reformulating a new min-max optimization, we laid the theoretical foundation for AT-PR and developed specialized numerical algorithms to solve this optimization. 
+We introduced a novel adversarial training (AT) method targeting probabilistic robustness (PR), called AT-PR. By reformulating a new min-max optimization, we laid the theoretical foundation for AT-PR and developed specialized numerical algorithms to solve this optimization. 
 
 ## 🔥 News
 
