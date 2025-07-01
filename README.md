@@ -48,7 +48,7 @@ We introduced a novel adversarial training (AT) method targeting probabilistic r
 
 ## Visialization of AE from AT-PR and PGD
 <p align="center">
-    <img src="docs/loss_visula.JPG" width="600px"/>
+    <img src="docs/loss_visula.jpg" width="600px"/>
 </p>
 
 
@@ -59,7 +59,7 @@ The code has been tested with the following environment:
 git clone https://github.com/wellzline/AT-PR.git
 conda env create --name AT-PR
 source activate AT-PR
-pip install -r requirements.txt
+pip install -r requirement.txt
 ```
 
 
@@ -88,7 +88,7 @@ python main.py \
 
 ## Experiment Result
 <p align="center">
-    <img src="docs/experiment.JPG" width="600px"/>
+    <img src="docs/experiment.jpg" width="600px"/>
 </p>
 
 

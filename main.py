@@ -121,16 +121,7 @@ def train(args, save_path):
             x, y = x.to(device), y.to(device)
             optimizer.zero_grad()
 
-            if args.attack == 'KL':
-                x_adv = KL_AE(model, x, step_size=args.attack_lr/255, epsilon=args.attack_eps/255, attack_steps=args.attack_steps)
-                model.train()
-                x_adv = Variable(torch.clamp(x_adv, 0.0, 1.0), requires_grad=False)
-                optimizer.zero_grad()
-                logits = model(x_adv)
-                loss_ce = nn.CrossEntropyLoss()(logits, y)
-                loss = loss_ce
-
-            elif args.attack == 'PR':
+            if args.attack == 'PR':
                 loss, logits = PR(model=model, x=x, y=y,
                                     step_size=args.attack_lr/255,
                                     epsilon=args.attack_eps/255,
@@ -142,14 +133,7 @@ def train(args, save_path):
 
             elif args.attack == 'Corruption':
                 loss, logits = corruption_uniform(model, x, y, epsilon=args.attack_eps/255)
-            
-            elif args.attack == 'corruption_gaussian':
-                loss, logits = corruption_gaussian(model, x, y, epsilon=args.attack_eps/255)
-            
-            elif args.attack == 'corruption_laplace':
-                loss, logits = corruption_laplace(model, x, y, epsilon=args.attack_eps/255)
-                    
-            
+   
             elif args.attack == 'ERM_DataAug':
                 loss, logits = ERM_DataAug(model, x, y, epsilon=args.attack_eps/255, sample_num = 20)
 
@@ -161,24 +145,7 @@ def train(args, save_path):
                                         step_size=args.attack_lr/255,
                                         epsilon=args.attack_eps/255,
                                         attack_steps=args.attack_steps)
-            
-            elif args.attack == 'pgd_origin':
-                loss, logits = pgd_origin(model=model, x=x, y=y, optimizer=optimizer,
-                                        step_size=args.attack_lr/255,
-                                        epsilon=args.attack_eps/255,
-                                        attack_steps=args.attack_steps)
                 
-            elif args.attack == 'PGD_uniform':
-                x_adv = pgd_loss(model, x, y, optimizer=optimizer,
-                                step_size=args.attack_lr/255, 
-                                epsilon=args.attack_eps/255, 
-                                attack_steps=args.attack_steps, 
-                                attack=True)
-                x_adv = x_adv.detach().clone()  
-                delta = torch.empty_like(x_adv).uniform_(-args.attack_eps/255, args.attack_eps/255)
-                x_adv = torch.clamp(x_adv + delta, 0, 1)
-                logits = model(x_adv)
-                loss = F.cross_entropy(logits, y, reduction="mean")
                 
             elif args.attack == "TRADES":
                 loss, logits = trades_loss(model=model, x=x, y=y, optimizer=optimizer,
@@ -201,21 +168,11 @@ def train(args, save_path):
                                         attack_steps=5,
                                         beta=0.5, M=args.cvar)
             
-            elif args.attack == 'EVaR':
-                mu = torch.zeros_like(x, requires_grad=False).to(x.device)            # center at 0
-                sigma = torch.ones_like(x, requires_grad=False).to(x.device) * 0.5    # moderate spread
-                loss, logits = evar_risk_averse_step(model, x, y, mu, sigma, gamma=0.05, epsilon=0.1,
-                          K=5, alpha=0.01, alpha_zeta=0.1, shape="linear", M=10, zeta_init=10.0)
                 
             elif args.attack == 'TERM':
                 loss, logits = TERM(model, x, y, t=2.0)
             
             elif args.attack == 'ALP':
-                # loss, logits = ALP(model, x, y, optimizer, step_size=2/255, epsilon=8/255, attack_steps=10, beta=args.beta)
-                # if epoch <= 10:
-                #     logits = model(x)
-                #     loss = F.cross_entropy(logits, y, reduction="mean")
-                # else:
                 loss, logits = ALP(model, x, y, optimizer, step_size=args.attack_lr/255, epsilon=args.attack_eps/255, attack_steps=10)
             
             elif args.attack == 'CLP':
@@ -324,10 +281,10 @@ if __name__ == '__main__':
         evaluate_PGD(args, model, optimizer, log_file=eval_file)
         evaluate_cw(args, model, optimizer, log_file=eval_file)
 
-        # args.attack_steps = 100
-        # evaluate_PGD(args, model, optimizer, log_file=eval_file)
+        args.attack_steps = 100
+        evaluate_PGD(args, model, optimizer, log_file=eval_file)
 
-        # evaluate_PR(model, log_file=eval_file)
+        evaluate_PR(model, log_file=eval_file)
 
         evaluate_aa(args, model, testloader, log_file=eval_file) 
     else:
