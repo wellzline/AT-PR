@@ -1,0 +1,19 @@
+python main.py \
+    --dataset CIFAR10 \
+    --data_root ./dataset/cifar_10 \
+    --model_name resnet18 \
+    --input_size 32 \
+    --model_depth 28 \
+    --model_width 10 \
+    --num_class 10 \
+    --lr 0.1 \
+    --batch_size 256 \
+    --weight_decay 5e-4  \
+    --epochs 100 \
+    --save_path output_model/cifar10_res18/AT_Clean \
+    --attack Clean \
+    --attack_steps 10 \
+    --attack_eps 8.0 \
+    --attack_lr 2 \
+    --phase train \
+    --beta 6.0 

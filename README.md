@@ -46,6 +46,12 @@ We introduced a novel adversarial training (AT) method targeting probabilistic r
 
 
 
+## Visialization of AE from AT-PR and PGD
+<p align="center">
+    <img src="docs/loss_visula.JPG" width="600px"/>
+</p>
+
+
 
 ## Installation
 The code has been tested with the following environment:
@@ -56,37 +62,34 @@ source activate AT-PR
 pip install -r requirements.txt
 ```
 
-## Data Preparation
-
-```angular2html
-dataset
-```
-
-
-
-
-
-## Verification Experiment
-
-### Config
-```angular2html
-
-```
 
 ### Run
 ```angular2html
-
+python main.py \
+    --dataset CIFAR10 \
+    --data_root ./dataset/cifar_10 \
+    --model_name resnet18 \
+    --input_size 32 \
+    --model_depth 28 \
+    --model_width 10 \
+    --num_class 10 \
+    --lr 0.1 \
+    --batch_size 256 \
+    --weight_decay 5e-4  \
+    --epochs 100 \
+    --save_path output_model/cifar10_res18/AT_Clean \
+    --attack Clean \
+    --attack_steps 10 \
+    --attack_eps 8.0 \
+    --attack_lr 2 \
+    --phase train \
+    --beta 6.0 
 ```
 
-### Defence 
-```angular2html
-
-```
-
-## Example Result
-
-
-## Acknowledgements
+## Experiment Result
+<p align="center">
+    <img src="docs/experiment.JPG" width="600px"/>
+</p>
 
 
 ## Citation
@@ -100,8 +103,6 @@ If you find this repo useful, please cite:
   organization={Springer}
 }
 ```
-
-## Remark
 
 
 
