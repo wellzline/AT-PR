@@ -94,10 +94,6 @@ train_loader = torch.utils.data.DataLoader(
 
 
 
-
-
-
-
 def evaluate_aa(args, model, testloader, log_file):
     l = [x for (x, y) in testloader]
     x_test = torch.cat(l, 0)
@@ -169,16 +165,14 @@ def cw_attack(args, model, optimizer, x, y):
         x_adv.requires_grad = True
         optimizer.zero_grad()
         logits = model(x_adv)  
-        loss = cw_loss(args, logits, y)  # torch.Size([256, 100])   torch.Size([256])
+        loss = cw_loss(args, logits, y) 
         
         loss.backward()
         grad = x_adv.grad.detach()
         grad = grad.sign()
 
-        # Update adversarial example
         x_adv = x_adv + (args.attack_lr/255) * grad
 
-        # Projection to the epsilon-ball
         x_adv = x + torch.clamp(x_adv - x, min=-args.attack_eps/255, max=args.attack_eps/255)
         x_adv = x_adv.detach()
         x_adv = torch.clamp(x_adv, min=0, max=1).detach()
@@ -217,24 +211,24 @@ def evaluate_cw(args, model, optimizer, log_file):
 def run_prob(x, y, model, eps, sample_id, distribute):
     def prop(x):
         model.eval()
-        y = model(x)  #  torch.Size([batch, 10])
+        y = model(x)  
         y_diff = torch.cat((y[:,:x_class], y[:,(x_class+1):]),dim=1) - y[:,x_class].unsqueeze(-1)
         y_diff, _ = y_diff.max(dim=1)
-        return y_diff  # >0 means AE
+        return y_diff  
 
     def brute_force(prop, distribute, count_iterations=1):
         count_above, count_total, count_particles = int(0), int(0), int(100)
 
         for i in range(count_iterations):
             prior = distribution[distribute]
-            x = prior.sample(torch.Size([count_particles]))  # torch.Size([batch, 3, 32, 32])
+            x = prior.sample(torch.Size([count_particles]))  
             
             x = torch.clamp(x, x_sample - eps, x_sample + eps)
             x = torch.clamp(x, min=x_min.view(3, 1, 1), max=x_max.view(3, 1, 1))
             # x = torch.clamp(x, min=x_min.view(1, 1, 1), max=x_max.view(1, 1, 1))
             
-            s_x = prop(x).squeeze(-1)   # print(s_x.shape)  torch.Size([10])
-            count_above += int((s_x >= 0).float().sum().item())  # the number of AE
+            s_x = prop(x).squeeze(-1)  
+            count_above += int((s_x >= 0).float().sum().item())  
             count_total += count_particles
 
         return count_above, count_total
@@ -256,7 +250,6 @@ def run_prob(x, y, model, eps, sample_id, distribute):
     #     loc=x_sample,  
     #     scale=eps * (x_max - x_min).view(1, 1, 1)  
     # )
-
 
 
     prior_uni = dist.Uniform(   # CIFAR, SVHN, Tiny-ImageNet
