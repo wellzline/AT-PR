@@ -1,6 +1,7 @@
 # Adversarial Training for Probabilistic Robustness
-[![paper]()](https://openreview.net/forum?id=eFUSbP7YQa)
-
+[![paper](https://img.shields.io/badge/paper-PDF-blue)](https://openreview.net/forum?id=eFUSbP7YQa)
+[![arXiv](https://img.shields.io/badge/arxiv-2402.15429-red)]()
+[![poster](https://img.shields.io/badge/poster-View-lightgrey)]()
 
 > [Yi Zhang](https://scholar.google.com/citations?user=9E8XJ54AAAAJ&hl=en), [Xingyu Zhao*](https://scholar.google.com/citations?user=SzEBdA8AAAAJ&hl=en), [Yuhang Chen](https://scholar.google.co.uk/citations?hl=en&user=gDYhywIAAAAJ), [Zhen Chen](https://scholar.google.com/citations?user=Ezm8UAQAAAAJ&hl=en), [Wenjie Ruan](https://scholar.google.com/citations?hl=en&user=VTASFGEAAAAJ),
 [Xiaowei Huang](https://scholar.google.com/citations?user=X4fLCCIAAAAJ&hl=en),
